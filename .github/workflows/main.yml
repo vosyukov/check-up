@@ -25,6 +25,8 @@ jobs:
         uses: nrwl/nx-set-shas@v3
       - name: Lint
         run: npx nx affected -t lint
+      - name: Test
+        run: npx nx affected -t test
       - name: 'Build images'
         run: INPUT_GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} npx nx affected --base=$NX_BASE --head=$NX_HEAD --target=build -c production && INPUT_GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} npx nx affected --base=$NX_BASE --head=$NX_HEAD --target=container --parallel=2
 

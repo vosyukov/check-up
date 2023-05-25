@@ -30,7 +30,7 @@ describe('AuthService', () => {
       result = await authService.register('test@test.test', 'pas');
     });
 
-    it('must register user', () => {
+    it('must register  user', () => {
       expect(userService.register).toHaveBeenCalledTimes(1);
       expect(userService.register).toHaveBeenCalledWith('test@test.test', 'pas');
     });

@@ -15,22 +15,22 @@ const mg = mailgun.client({
   url: environment.mailgunHost,
 });
 
+export interface EmailNotificationOptions {
+  email: string;
+  checkName: string;
+  status: CheckObjectStatus;
+}
+
 @Injectable()
 export class EmailNotificationService {
-  constructor(private readonly userService: UserService) {}
-
-  public async sendNotification(userId: string, checkId: string, status: CheckObjectStatus): Promise<void> {
-    const user = await this.userService.getUser({
-      id: userId,
-    });
-
-    const subject = `${status === CheckObjectStatus.UP ? 'Monitor is UP' : 'Monitor is DOWN'}`;
+  public async sendNotification(options: EmailNotificationOptions): Promise<void> {
+    const subject = `${options.status === CheckObjectStatus.UP ? 'Monitor is UP' : 'Monitor is DOWN'}`;
 
     await mg.messages.create('check-up.host', {
       from: 'check-up.host <email@check-up.host>',
-      to: [user.email],
-      subject: `${subject}: ${checkId}`,
-      text: `${subject}: ${checkId}`,
+      to: [options.email],
+      subject: `${subject}: ${options.checkName}`,
+      text: `${subject}: ${options.checkName}`,
     });
   }
 }

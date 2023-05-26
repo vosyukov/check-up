@@ -31,12 +31,11 @@ export class PingHandlerService {
         status: CheckObjectStatus.UP,
       });
 
-      const user = await this.userService.getUser({ id: checkObject.id });
+      const user = await this.userService.getUser({ id: checkObject.userId });
 
       await this.emailNotificationService.sendNotification({
         checkName: checkObject.name,
         status: CheckObjectStatus.UP,
-
         email: user.email,
       });
     } else {

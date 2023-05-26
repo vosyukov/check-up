@@ -5,9 +5,10 @@ import { PingHandlerService } from './services/ping-handler.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { PingEntity } from './entities/ping.entity';
 import { NotificationModule } from '../notification/notification.module';
+import { UserModule } from '../user/user.module';
 
 @Module({
-  imports: [CheckObjectModule, NotificationModule, TypeOrmModule.forFeature([PingEntity])],
+  imports: [CheckObjectModule, NotificationModule, UserModule, TypeOrmModule.forFeature([PingEntity])],
   providers: [PingHandlerService],
   controllers: [PingHandlerController],
 })
